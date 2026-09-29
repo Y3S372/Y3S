@@ -508,9 +508,51 @@
         new PaystackPop();
 
 
-      popup.resumeTransaction(
-        result.data.access_code
+     popup.resumeTransaction(
+  result.data.access_code,
+  {
+    onSuccess: async (transaction) => {
+
+      const verifyResponse = await fetch(
+        BACKEND_URL,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify({
+            action: "verify",
+            reference: transaction.reference
+          })
+        }
       );
+
+      const verifyResult =
+        await verifyResponse.json();
+
+      if (verifyResult.status) {
+
+        alert(
+          "Payment successful! Your Y3S order has been received."
+        );
+
+        cart = [];
+
+        updateCart();
+
+      } else {
+
+        alert(
+          "Payment completed, but order confirmation is still processing."
+        );
+      }
+    },
+
+    onCancel: () => {
+      console.log("Payment cancelled");
+    }
+  }
+);
 
 
     } catch (error) {
