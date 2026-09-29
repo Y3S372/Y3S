@@ -3,244 +3,206 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Y3S — You Experience Swag</title>
+
+  <script src="https://js.paystack.co/v2/inline.js"></script>
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: Arial, sans-serif;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      background: #ffffff;
-      color: #111111;
+      background: #fff;
+      color: #111;
     }
 
     header {
-      padding: 25px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #ddd;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 100;
     }
 
-    .logo {
-      font-size: 32px;
-      font-weight: bold;
-      letter-spacing: 3px;
+    header h1 {
+      font-size: 28px;
+      letter-spacing: 2px;
     }
 
-    nav a {
-      margin-left: 15px;
-      text-decoration: none;
-      color: #111;
-      font-size: 14px;
-    }
-
-    .cart-link {
-      font-weight: bold;
+    header p {
+      font-size: 12px;
+      margin-top: 4px;
+      color: #666;
     }
 
     .hero {
-      min-height: 75vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      padding: 55px 20px;
       text-align: center;
-      padding: 30px 20px;
+      background: #111;
+      color: white;
     }
 
-    .hero h1 {
-      font-size: 60px;
-      letter-spacing: 8px;
-      margin-bottom: 15px;
+    .hero h2 {
+      font-size: 38px;
+      margin-bottom: 10px;
     }
 
     .hero p {
-      font-size: 15px;
-      letter-spacing: 4px;
-      margin-bottom: 35px;
+      color: #ccc;
     }
 
-    .button {
-      background: #111;
-      color: white;
-      padding: 15px 30px;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
+    .shop {
+      padding: 40px 20px;
+      max-width: 1100px;
+      margin: auto;
     }
 
-    .section {
-      padding: 50px 20px;
+    .shop h2 {
       text-align: center;
-    }
-
-    .section h2 {
-      font-size: 30px;
       margin-bottom: 30px;
     }
 
     .products {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      max-width: 900px;
-      margin: auto;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
     }
 
     .product {
       border: 1px solid #ddd;
-      padding: 15px;
-      text-align: left;
-    }
-
-    .product-image {
-      height: 220px;
-      background: #eeeeee;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 15px;
+      border-radius: 12px;
       overflow: hidden;
-    }
-
-    .product-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .product h3 {
-      margin-bottom: 8px;
-    }
-
-    .product-price {
-      color: #555;
-      margin-bottom: 15px;
-    }
-
-    .size-label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
-
-    .size-select {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
       background: white;
     }
 
-    .add-cart {
+    .product img {
       width: 100%;
-      background: #111;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
+      display: block;
     }
 
-    #cart {
+    .product-info {
+      padding: 18px;
+    }
+
+    .product-info h3 {
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    select,
+    input,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 7px;
+      background: #111;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .cart-section {
       max-width: 700px;
-      margin: auto;
-      text-align: left;
+      margin: 20px auto 60px;
+      padding: 25px;
     }
 
     .cart-item {
-      border-bottom: 1px solid #ddd;
-      padding: 15px 0;
       display: flex;
       justify-content: space-between;
       gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #ddd;
     }
 
-    .cart-total {
+    .remove-btn {
+      background: #e00;
+      width: auto;
+      padding: 7px 10px;
+      font-size: 12px;
+    }
+
+    .total {
       font-size: 20px;
       font-weight: bold;
-      margin-top: 20px;
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
 
-    .checkout-button {
-      display: inline-block;
-      background: #111;
-      color: white;
-      padding: 15px 25px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: bold;
+    .checkout {
+      margin-top: 25px;
     }
 
-    .empty-cart {
+    .empty {
+      text-align: center;
       color: #777;
+      padding: 20px;
     }
 
     footer {
-      padding: 30px;
       text-align: center;
+      padding: 30px;
       background: #111;
       color: white;
-      margin-top: 40px;
-    }
-
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 42px;
-      }
-
-      .products {
-        grid-template-columns: 1fr;
-      }
+      font-size: 13px;
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <div class="logo">Y3S</div>
+<header>
+  <h1>Y3S</h1>
+  <p>YOU EXPERIENCE SWAG</p>
+</header>
 
-    <nav>
-      <a href="#shop">SHOP</a>
-      <a href="#about">ABOUT</a>
-      <a href="#cart" class="cart-link">CART (<span id="cart-count">0</span>)</a>
-    </nav>
-  </header>
+<section class="hero">
+  <h2>YOU EXPERIENCE SWAG</h2>
+  <p>Wear the experience.</p>
+</section>
 
-  <section class="hero">
-    <h1>Y3S</h1>
-    <p>YOU EXPERIENCE SWAG</p>
-    <a href="#shop" class="button">SHOP NOW</a>
-  </section>
+<section class="shop">
+  <h2>SHOP Y3S</h2>
 
-  <section class="section" id="shop">
-    <h2>NEW COLLECTION</h2>
+  <div class="products">
 
-    <div class="products">
+    <!-- BLACK T-SHIRT -->
+    <div class="product">
 
-      <div class="product">
-        <div class="product-image">
-          <img src="ECCDE519-9421-47BE-999F-5E0243200FD7.png" alt="Black Y3S T-Shirt">
-        </div>
+      <img
+        src="ECCDE519-9421-47BE-999F-5E0243200FD7.png"
+        alt="Y3S Black T-Shirt"
+      >
+
+      <div class="product-info">
 
         <h3>Y3S BLACK T-SHIRT</h3>
-        <p class="product-price">₦15,000</p>
 
-        <label class="size-label">Choose Size</label>
+        <p class="price">₦15,000</p>
 
-        <select class="size-select" id="black-size">
-          <option value="">Select size</option>
+        <select id="blackSize">
+          <option value="">Select Size</option>
           <option value="S">S</option>
           <option value="M">M</option>
           <option value="L">L</option>
@@ -248,23 +210,30 @@
           <option value="XXL">XXL</option>
         </select>
 
-        <button class="add-cart" onclick="addToCart('Y3S BLACK T-SHIRT', 15000, 'black-size')">
+        <button onclick="addToCart('Y3S BLACK T-SHIRT', 15000, 'blackSize')">
           ADD TO CART
         </button>
-      </div>
 
-      <div class="product">
-        <div class="product-image">
-          <img src="2A8AA844-09B0-4DDC-B272-2DF9C7D3847F.png" alt="White Y3S T-Shirt">
-        </div>
+      </div>
+    </div>
+
+
+    <!-- WHITE T-SHIRT -->
+    <div class="product">
+
+      <img
+        src="2A8AA844-09B0-4DDC-B272-2DF9C7D3847F.png"
+        alt="Y3S White T-Shirt"
+      >
+
+      <div class="product-info">
 
         <h3>Y3S WHITE T-SHIRT</h3>
-        <p class="product-price">₦15,000</p>
 
-        <label class="size-label">Choose Size</label>
+        <p class="price">₦15,000</p>
 
-        <select class="size-select" id="white-size">
-          <option value="">Select size</option>
+        <select id="whiteSize">
+          <option value="">Select Size</option>
           <option value="S">S</option>
           <option value="M">M</option>
           <option value="L">L</option>
@@ -272,158 +241,294 @@
           <option value="XXL">XXL</option>
         </select>
 
-        <button class="add-cart" onclick="addToCart('Y3S WHITE T-SHIRT', 15000, 'white-size')">
+        <button onclick="addToCart('Y3S WHITE T-SHIRT', 15000, 'whiteSize')">
           ADD TO CART
         </button>
+
       </div>
-
-    </div>
-  </section>
-
-  <section class="section" id="cart">
-    <h2>YOUR CART</h2>
-
-    <div id="cart-items">
-      <p class="empty-cart">Your cart is empty.</p>
     </div>
 
-    <div class="cart-total">
-      Total: ₦<span id="cart-total">0</span>
-    </div>
+  </div>
+</section>
 
-    <a href="#checkout" class="checkout-button" onclick="showCheckout()">
-      CHECKOUT
-    </a>
-  </section>
 
-  <section class="section" id="checkout" style="display: none;">
-    <h2>CHECKOUT</h2>
+<section class="cart-section">
 
-    <p style="margin-bottom: 20px;">
-      Enter your details so we can process your order.
-    </p>
+  <h2>Your Cart</h2>
 
-    <input id="customer-name" type="text" placeholder="Full Name"
-      style="padding:12px; width:100%; max-width:500px; margin-bottom:10px;">
+  <div id="cartItems">
+    <div class="empty">Your cart is empty.</div>
+  </div>
 
-    <input id="customer-phone" type="tel" placeholder="Phone Number"
-      style="padding:12px; width:100%; max-width:500px; margin-bottom:10px;">
+  <div class="total">
+    Total: ₦<span id="cartTotal">0</span>
+  </div>
 
-    <input id="customer-address" type="text" placeholder="Delivery Address"
-      style="padding:12px; width:100%; max-width:500px; margin-bottom:15px;">
+
+  <div class="checkout">
+
+    <h2>Checkout</h2>
 
     <br>
 
-    <button class="button" onclick="placeOrder()">
-      PLACE ORDER
+    <input
+      type="text"
+      id="customerName"
+      placeholder="Full Name"
+    >
+
+    <input
+      type="email"
+      id="customerEmail"
+      placeholder="Email Address"
+    >
+
+    <input
+      type="tel"
+      id="customerPhone"
+      placeholder="Phone Number"
+    >
+
+    <textarea
+      id="customerAddress"
+      placeholder="Delivery Address"
+      rows="4"
+    ></textarea>
+
+    <button onclick="payWithPaystack()">
+      PAY NOW
     </button>
 
-    <p id="order-message" style="margin-top:20px;"></p>
-  </section>
+  </div>
 
-  <section class="section" id="about">
-    <h2>ABOUT Y3S</h2>
-    <p>YOU EXPERIENCE SWAG.</p>
-  </section>
+</section>
 
-  <footer>
-    © 2026 Y3S. All Rights Reserved.
-  </footer>
 
-  <script>
-    let cart = [];
+<footer>
+  © 2026 Y3S — You Experience Swag
+</footer>
 
-    function addToCart(name, price, sizeId) {
-      const size = document.getElementById(sizeId).value;
 
-      if (size === "") {
-        alert("Please select a size first.");
+<script>
+
+  /* PAYSTACK SETTINGS */
+
+  const PAYSTACK_PUBLIC_KEY =
+    "pk_live_0b91b1dbd7c473a4656ed57c25ec699ea6a3d236";
+
+  const BACKEND_URL =
+    "https://script.google.com/macros/s/AKfycbxtVwfPHydVGoYNSKNOcYJrkPq8cKvkxLfFx3u4d9yS4oZ8TjAjOPRuP7Dt694aXCYN/exec";
+
+
+  /* CART */
+
+  let cart = [];
+
+
+  function addToCart(name, price, sizeId) {
+
+    const size =
+      document.getElementById(sizeId).value;
+
+    if (!size) {
+
+      alert("Please select a size first.");
+
+      return;
+    }
+
+    cart.push({
+      name: name,
+      price: price,
+      size: size
+    });
+
+    updateCart();
+
+    alert("Added to cart.");
+  }
+
+
+  function removeFromCart(index) {
+
+    cart.splice(index, 1);
+
+    updateCart();
+  }
+
+
+  function updateCart() {
+
+    const cartItems =
+      document.getElementById("cartItems");
+
+    const cartTotal =
+      document.getElementById("cartTotal");
+
+    cartItems.innerHTML = "";
+
+    if (cart.length === 0) {
+
+      cartItems.innerHTML =
+        '<div class="empty">Your cart is empty.</div>';
+
+      cartTotal.textContent = "0";
+
+      return;
+    }
+
+    let total = 0;
+
+
+    cart.forEach((item, index) => {
+
+      total += item.price;
+
+      const div =
+        document.createElement("div");
+
+      div.className = "cart-item";
+
+      div.innerHTML = `
+        <div>
+          <strong>${item.name}</strong><br>
+          Size: ${item.size}<br>
+          ₦${item.price.toLocaleString()}
+        </div>
+
+        <button
+          class="remove-btn"
+          onclick="removeFromCart(${index})"
+        >
+          Remove
+        </button>
+      `;
+
+      cartItems.appendChild(div);
+
+    });
+
+
+    cartTotal.textContent =
+      total.toLocaleString();
+  }
+
+
+  /* PAYSTACK PAYMENT */
+
+  async function payWithPaystack() {
+
+    if (cart.length === 0) {
+
+      alert("Your cart is empty.");
+
+      return;
+    }
+
+
+    const name =
+      document.getElementById("customerName").value.trim();
+
+    const email =
+      document.getElementById("customerEmail").value.trim();
+
+    const phone =
+      document.getElementById("customerPhone").value.trim();
+
+    const address =
+      document.getElementById("customerAddress").value.trim();
+
+
+    if (!name || !email || !phone || !address) {
+
+      alert("Please fill in all your checkout details.");
+
+      return;
+    }
+
+
+    const total =
+      cart.reduce(
+        (sum, item) => sum + item.price,
+        0
+      );
+
+
+    try {
+
+      const response = await fetch(
+        BACKEND_URL,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
+
+          body: JSON.stringify({
+
+            email: email,
+
+            amount: total * 100,
+
+            name: name,
+
+            phone: phone,
+
+            address: address,
+
+            order: cart,
+
+            callback_url:
+              window.location.href
+
+          })
+        }
+      );
+
+
+      const result =
+        await response.json();
+
+
+      if (!result.status) {
+
+        alert(
+          "Payment could not be started: " +
+          (result.message ||
+            "Unknown error")
+        );
+
         return;
       }
 
-      cart.push({
-        name: name,
-        price: price,
-        size: size
-      });
 
-      updateCart();
+      const popup =
+        new PaystackPop();
 
-      alert(name + " has been added to your cart.");
 
-      window.location.hash = "cart";
+      popup.resumeTransaction(
+        result.data.access_code
+      );
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Something went wrong while connecting to Paystack. Please try again."
+      );
+
     }
 
-    function updateCart() {
-      const cartItems = document.getElementById("cart-items");
-      const cartCount = document.getElementById("cart-count");
-      const cartTotal = document.getElementById("cart-total");
+  }
 
-      cartItems.innerHTML = "";
 
-      let total = 0;
+  updateCart();
 
-      cart.forEach(function(item, index) {
-        total += item.price;
-
-        const itemDiv = document.createElement("div");
-        itemDiv.className = "cart-item";
-
-        itemDiv.innerHTML = `
-          <div>
-            <strong>${item.name}</strong><br>
-            Size: ${item.size}<br>
-            ₦${item.price.toLocaleString()}
-          </div>
-
-          <button onclick="removeItem(${index})">
-            Remove
-          </button>
-        `;
-
-        cartItems.appendChild(itemDiv);
-      });
-
-      if (cart.length === 0) {
-        cartItems.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
-      }
-
-      cartCount.textContent = cart.length;
-      cartTotal.textContent = total.toLocaleString();
-    }
-
-    function removeItem(index) {
-      cart.splice(index, 1);
-      updateCart();
-    }
-
-    function showCheckout() {
-      if (cart.length === 0) {
-        alert("Your cart is empty.");
-        return;
-      }
-
-      document.getElementById("checkout").style.display = "block";
-    }
-
-    function placeOrder() {
-      const name = document.getElementById("customer-name").value;
-      const phone = document.getElementById("customer-phone").value;
-      const address = document.getElementById("customer-address").value;
-      const message = document.getElementById("order-message");
-
-      if (name === "" || phone === "" || address === "") {
-        message.textContent = "Please fill in all your details.";
-        return;
-      }
-
-      message.textContent =
-        "Order received! We will contact you using the phone number provided.";
-
-      cart = [];
-      updateCart();
-    }
-  </script>
+</script>
 
 </body>
 </html>
